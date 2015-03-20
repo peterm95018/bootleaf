@@ -1,0 +1,27 @@
+{
+  "name": "bootleaf-angular",
+  "version": "0.0.1",
+  "homepage": "https://github.com/peterm95018/bootleaf",
+  "authors": [
+    "Peter McMillan <peterm95018@gmail.com>"
+  ],
+  "description": "a fork refactored for AngularJS",
+  "keywords": [
+    "angular",
+    "leaflet"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.3.15",
+    "angular-route": "~1.3.15",
+    "angular-resource": "~1.3.15",
+    "angular-leaflet-directive": "~0.7.11"
+  }
+}
