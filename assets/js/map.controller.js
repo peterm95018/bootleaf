@@ -23,12 +23,12 @@ mapApp.config(function ($routeProvider) {
 
 // CONTROLLERS
 mapApp.controller('homeController', ['$scope', function ($scope) {
-    // show UCSC centered at zoom 12
+    // show UCSC centered at zoom 13
     angular.extend($scope, {
                 center: {
                     lat: 37.00010,
                     lng: -122.06001,
-                    zoom: 12
+                    zoom: 13
                 }
 	});
 

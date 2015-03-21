@@ -159,6 +159,8 @@ $.getJSON("data/boroughs.geojson", function (data) {
   boroughs.addData(data);
 });
 
+
+
 var subwayLines = L.geoJson(null, {
   style: function (feature) {
     if (feature.properties.route_id === "1" || feature.properties.route_id === "2" || feature.properties.route_id === "3") {
@@ -365,6 +367,8 @@ var museums = L.geoJson(null, {
 $.getJSON("data/DOITT_MUSEUM_01_13SEPT2010.geojson", function (data) {
   museums.addData(data);
 });
+
+
 
 map = L.map("map", {
   zoom: 10,

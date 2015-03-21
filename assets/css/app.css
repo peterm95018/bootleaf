@@ -23,6 +23,14 @@ input[type="radio"], input[type="checkbox"] {
   height: 100%;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
+#mapApp {
+  width: auto;
+  height: 100%;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+.angular-leaflet-map {
+  height: 100%;
+}
 #loading {
   position: absolute;
   width: 220px;
