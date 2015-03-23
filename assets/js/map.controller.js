@@ -50,10 +50,22 @@ mapApp.controller('homeController', ['$scope', '$http', 'leafletData', function 
         console.log('we gotta problem');
     });
     
+    
+    function popUp(f,l){
+    var out = [];
+    if (f.properties){
+        for(key in f.properties){
+            out.push(key+": "+f.properties[key]);
+        }
+        l.bindPopup(out.join("<br />"));
+    }
+}
+    
     // add geoJSON to map
-    leafletData.getMap().then(function(map) {
-        L.geoJson($scope.ucscBuilings).coordsToLatLng($scope.ucscBuildings).addTo(map);
-    });
+leafletData.getMap().then(function(map) {
+    var geojsonLayer = new L.GeoJSON.AJAX(["data/ucsc.buildings.geojson"],{onEachFeature:popUp}).addTo(map);
+    
+});
         
                                                          
 }]); // end controller
