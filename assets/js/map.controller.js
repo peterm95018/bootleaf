@@ -34,38 +34,69 @@ mapApp.controller('homeController', ['$scope', '$http', 'leafletData', function 
                 }
     }); // end extend
     
+var geojson;
+    geojson = L.geoJson(null);
+    
+// styling the polygons
+var myStyle = {
+    "color": "#ff7800",
+    "weight": 1,
+    "opacity": 0.65
+};
 
-    
-    // get geoJSON file and process
-    $scope.ucscBuildings = {};
-    
-    $http.get('data/ucsc.buildings.geojson').
-    success(function(data, status, headers, config) {
-      $scope.ucscBuildings = data;
-        //console.log('got a data object' + data);
-        
-    }).
-    error(function(data, status, headers, config) {
-      // log error
-        console.log('we gotta problem');
+// highlight building colors when mouse is over
+// create a style for buildings fill and stroke
+function highlightFeature(e) {
+    var layer = e.target;
+
+    layer.setStyle({
+        weight: 1,
+        color: '#ff7800',
+        dashArray: '',
+        fillOpacity: 0.65
     });
     
-    
-    function popUp(f,l){
-    var out = [];
-    if (f.properties){
-        for(key in f.properties){
-            out.push(key+": "+f.properties[key]);
-        }
-        l.bindPopup(out.join("<br />"));
+
+    if (!L.Browser.ie && !L.Browser.opera) {
+        layer.bringToFront();
     }
 }
     
-    // add geoJSON to map
-leafletData.getMap().then(function(map) {
-    var geojsonLayer = new L.GeoJSON.AJAX(["data/ucsc.buildings.geojson"],{onEachFeature:popUp}).addTo(map);
+// mouseout resets the layer
+function resetHighlight(e) {
+    geojson.resetStyle(e.target);
+}
+
+
+function onEachFeature(feature, layer) {
+if (feature.properties) {
+    layer.bindPopup(
+    "<h4>" + feature.properties.name + "</h4><br />" +
+    feature.properties['addr:housenumber'] + " " +
+    feature.properties['addr:street'] + "<br />" +
+    feature.properties['addr:city'] + ", CA" + "<br />" + 
+    feature.properties['addr:postcode'] + "<br />");
+}
     
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+       // click: zoomToFeature
+    });
+    
+}
+
+   
+// add geoJSON to map
+// change from popup to onEachFeature
+leafletData.getMap().then(function(map) {
+    var geojsonLayer = new L.GeoJSON.AJAX(["data/ucsc.buildings.geojson"], {
+        onEachFeature: onEachFeature,
+        style: myStyle
+    }).addTo(map);
+    geojson = geojsonLayer;
 });
+    
         
                                                          
 }]); // end controller
